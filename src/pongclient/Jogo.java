@@ -10,7 +10,9 @@ import java.awt.event.KeyEvent;
  */
 public class Jogo implements Runnable{
 
-    private final String PATH_PROJETO = "C:\\Users\\Derlei\\Documents\\NetBeansProjects\\PongClient\\src\\pongclient";
+    
+    private final String PATH_PROJETO = UtilPath.getPastaPrincipal();
+    //"C:\\Users\\Derlei\\Documents\\NetBeansProjects\\PongClient\\src\\pongclient";
     private final String PATH_SOM_JOGO = PATH_PROJETO + "sounds\\mario.wav";
     private final String PATH_SOM_BOLA_PINGANDO = PATH_PROJETO + "sounds\\moeda.wav";
     private final String PATH_SOM_SUBIR_NIVEL = PATH_PROJETO + "sounds\\aumentaVeloc.wav";
