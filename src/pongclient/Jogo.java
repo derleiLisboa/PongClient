@@ -3,6 +3,9 @@ package pongclient;
 import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -42,60 +45,10 @@ public class Jogo implements Runnable{
         StdDraw.setYscale(INICIO_TELA, FIM_TELA);
 
         while (true) {
-            if (Math.abs(bola.getPosicaoHorizontal() + bola.getVelocidadeHorizontal()) > FIM_TELA - bola.getRaio()) {
-                bola.inverteVelocidadeHorizontal();
-            }
-            if (Math.abs(bola.getPosicaoVertical() + bola.getVelocidadeVertical()) > FIM_TELA - bola.getRaio()) {
-                bola.inverteVelocidadeVertical();
-            }
-
-            //Se colidir com a barra
-            if(estaColidindoComBarra()){
-                bola.inverteVelocidadeVertical();
-                jogador.incrementarPontouacao();
-                contadorPing++;
-                reproduzirSomContatoComBarra();
-            }
-
-            //Se passar pela barra
-            if(passouPelaBarra()){
-                jogador.decrementarVida();
-                reinicializarBola();
-
-                if(jogador.getVidas() == 0){
-
-                    audio.stop();
-                    reproduzirSomFimDeJogo();
-
-                    StdDraw.setPenColor(Color.WHITE);
-                    StdDraw.text(0.5, 0.9, "Fim do Jogo");
-                    StdDraw.show(1);
-                    break;
-                }
-
-                switch(jogador.getVidas()){
-                    case 2:
-                        vidaTres.setCor(Color.GRAY);
-                        break;
-                    case 1:
-                        vidaDois.setCor(Color.GRAY);
-                        break;
-                }
-            }
-
-            if(contadorPing % 5 == 0){
-                velocidade--;
-                contadorPing++;
-                reproduzirSomAumentarVelocidade();
-            }
-
-            bola.mover();
-
             imprimirPlanoDeFundo();
             imprimirBola();
             imprimirBarra();
             imprimirPontos();
-            imprimirVidas();
             
             verificaTeclasPressionadas();
             
@@ -205,13 +158,9 @@ public class Jogo implements Runnable{
         StdDraw.setPenColor(Color.WHITE);
         StdDraw.text(0.89, 0.95, String.valueOf(jogador.getPontos()));
     }
-
-    private void imprimirVidas() {
-        StdDraw.setPenColor(vidaUm.getCor());
-        StdDraw.filledCircle(vidaUm.getPosicaoHorizontal(), vidaUm.getPosicaoVertical(), vidaUm.getRaio());
-        StdDraw.setPenColor(vidaDois.getCor());
-        StdDraw.filledCircle(vidaDois.getPosicaoHorizontal(), vidaDois.getPosicaoVertical(), vidaDois.getRaio());
-        StdDraw.setPenColor(vidaTres.getCor());
-        StdDraw.filledCircle(vidaTres.getPosicaoHorizontal(), vidaTres.getPosicaoVertical(), vidaTres.getRaio());
+    
+    public static void main(String[] args) throws UnknownHostException, IOException{
+        
+        Socket client = new Socket("127.0.0.1", 12345);   
     }
 }

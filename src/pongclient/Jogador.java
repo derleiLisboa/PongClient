@@ -5,6 +5,10 @@
  */
 package pongclient;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 /**
  *
  * @author Derlei
@@ -13,18 +17,15 @@ public class Jogador {
     
     private String nome;
     private int pontos;
-    private int vidas;
 
     public Jogador(String nome) {
         this.nome = nome;
         this.pontos = 0;
-        this.vidas = 3;
     }
 
     public Jogador(String nome, int pontos) {
         this.nome = nome;
         this.pontos = pontos;
-        this.vidas = 0;
     }
 
     public String getNome() {
@@ -38,18 +39,4 @@ public class Jogador {
     public int getPontos() {
         return pontos;
     }
-
-    public int getVidas() {
-        return vidas;
-    }
-    
-    public void incrementarPontouacao(){
-        this.pontos++;
-    }
-    
-    public void decrementarVida(){
-        this.vidas--;
-    }
-    
-    
 }
